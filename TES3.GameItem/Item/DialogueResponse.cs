@@ -344,7 +344,7 @@ namespace TES3.GameItem.Item
             validator.CheckCount(record, "SCVR", MAX_DIALOGUE_CONDITIONS);
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new DialogueResponse(Identifier)
             {

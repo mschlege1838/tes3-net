@@ -164,7 +164,7 @@ namespace TES3.GameItem.Item
             validator.WarnCount(record, "ENAM", MAX_ALCHEMY_EFFECTS);
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Potion(Name)
             {

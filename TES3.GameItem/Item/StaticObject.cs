@@ -83,7 +83,7 @@ namespace TES3.GameItem.Item
             target.WriteLine($"{ToString()}: {Model}");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new StaticObject(Name)
             {

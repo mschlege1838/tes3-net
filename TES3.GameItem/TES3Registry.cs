@@ -235,7 +235,7 @@ namespace TES3.GameItem
                         continue;
                     }
 
-                    nominalItem = item.Clone();
+                    nominalItem = item.Copy();
                 }
                 else
                 {

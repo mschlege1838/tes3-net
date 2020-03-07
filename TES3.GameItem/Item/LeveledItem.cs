@@ -43,7 +43,7 @@ namespace TES3.GameItem.Item
             CalcForEachItem = HasFlagSet(subRecord.Data, CALC_FOR_EACH_ITEM_FLAG);
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new LeveledItem(Name);
             CopyClone(result);

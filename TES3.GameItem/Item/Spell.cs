@@ -164,7 +164,7 @@ namespace TES3.GameItem.Item
             validator.CheckCount(record, "ENAM", MAX_SPELL_EFFECTS);
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Spell(Type, Name)
             {

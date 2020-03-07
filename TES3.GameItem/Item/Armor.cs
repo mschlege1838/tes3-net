@@ -120,7 +120,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "FNAM");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Armor(Name)
             {

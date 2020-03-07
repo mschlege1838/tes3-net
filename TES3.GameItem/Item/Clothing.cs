@@ -71,7 +71,7 @@ namespace TES3.GameItem.Item
             EnchantCapacity = clothingData.EnchantPoints;
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Clothing(Name)
             {

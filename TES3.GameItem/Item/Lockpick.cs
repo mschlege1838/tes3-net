@@ -22,7 +22,7 @@ namespace TES3.GameItem.Item
 
         public override string RecordName => "LOCK";
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Lockpick(Name);
             CopyClone(result);

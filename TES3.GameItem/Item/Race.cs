@@ -272,7 +272,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "RADT");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Race(Name)
             {

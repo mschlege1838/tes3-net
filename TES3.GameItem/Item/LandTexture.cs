@@ -86,7 +86,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "DATA");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new LandTexture(Name)
             {

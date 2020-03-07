@@ -240,7 +240,7 @@ namespace TES3.GameItem.Item
             validator.CheckCount(record, "RNAM", Constants.FACT_MAX_RANKS);
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new Faction(Name)
             {

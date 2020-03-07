@@ -10,7 +10,7 @@ using TES3.Util;
 
 namespace TES3.GameItem
 {
-    public abstract class TES3GameItem
+    public abstract class TES3GameItem : ICopyable<TES3GameItem>
     {
 
         object id;
@@ -143,7 +143,7 @@ namespace TES3.GameItem
 
         public abstract void StreamDebug(TextWriter target);
 
-        public abstract TES3GameItem Clone();
+        public abstract TES3GameItem Copy();
 
         protected virtual void Init()
         {

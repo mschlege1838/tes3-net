@@ -158,7 +158,7 @@ namespace TES3.GameItem.Item
         }
 
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new Apparatus(Name, Type)
             {

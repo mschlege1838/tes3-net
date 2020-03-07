@@ -159,7 +159,7 @@ namespace TES3.GameItem.Item
             writer.DecIndent();
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             throw new NotImplementedException();
         }

@@ -164,7 +164,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "BKDT");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new Book(Name)
             {

@@ -106,7 +106,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "SNAM");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new SoundGenerator(Key)
             {

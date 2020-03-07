@@ -140,7 +140,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "RIDT");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new RepairItem(Name)
             {

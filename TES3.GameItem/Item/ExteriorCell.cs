@@ -154,7 +154,7 @@ namespace TES3.GameItem.Item
             writer.WriteLine($"Map Color: {MapColor}");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new ExteriorCell(Grid)
             {

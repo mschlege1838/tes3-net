@@ -149,7 +149,7 @@ namespace TES3.GameItem.Item
             validator.CheckRequired(record, "BYDT");
         }
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             return new BodyPart(Name)
             {

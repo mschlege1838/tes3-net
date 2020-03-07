@@ -24,7 +24,7 @@ namespace TES3.GameItem.Item
 
         public override string RecordName => "LEVC";
 
-        public override TES3GameItem Clone()
+        public override TES3GameItem Copy()
         {
             var result = new LeveledCreature(Name);
             CopyClone(result);
