@@ -7,6 +7,7 @@ using System.Reflection;
 
 using TES3.GameItem.Item;
 using TES3.GameItem.Part;
+using TES3.GameItem.TypeConstant;
 using TES3.Records;
 using TES3.Util;
 
@@ -81,8 +82,7 @@ namespace TES3.GameItem
                 }
             }
 
-            var outFile = new FileInfo(Path.Combine(path, modFileName));
-            using (var stream = outFile.Exists ? outFile.Open(FileMode.Truncate) : outFile.Create())
+            using (var stream = File.Open(Path.Combine(path, modFileName), FileMode.Create))
             {
                 modFile.WriteToStream(stream);
             }
@@ -177,7 +177,7 @@ namespace TES3.GameItem
             }
         }
 
-        public void CreateModFile(string modFileName, string companyName, string description)
+        public void CreateModFile(string modFileName, string companyName, string description, TES3FileType type = TES3FileType.ESP)
         {
             if (modFiles.ContainsKey(modFileName))
             {
@@ -187,7 +187,8 @@ namespace TES3.GameItem
             var header = new TES3FileHeader()
             {
                 CompanyName = companyName,
-                Description = description
+                Description = description,
+                FileType = type
             };
 
             var record = header.CreateRecord();
@@ -197,23 +198,32 @@ namespace TES3.GameItem
             HandleCommonCache(modFileName, header);
         }
 
-        public void AddParent(string modFileName, string parentName, long parentSize = -1)
+        public void AddParents(string modFileName, IEnumerable<string> parentNames)
         {
+            var toAdd = new HashSet<string>();
             var header = GetGameItem<TES3FileHeader>(modFileName, TES3FileHeader.TES3FileHeaderKey);
-            foreach (var parent in header.ParentMasters)
+            foreach (var parentName in parentNames)
             {
-                if (parent.Name == parentName)
+                foreach (var parent in header.ParentMasters)
                 {
-                    throw new InvalidOperationException($"Mod file {modFileName} already has parent: {parentName}");
+                    if (parent.Name != parentName)
+                    {
+                        toAdd.Add(parentName);
+                    }
                 }
             }
 
-            header.ParentMasters.Add(new TES3ParentMaster(parentName, parentSize));
+            foreach (var parentName in toAdd)
+            {
+                header.ParentMasters.Add(new TES3ParentMaster(parentName, -1));
+            }
         }
 
 
-        public void AddItems(string modFileName, IEnumerable<TES3GameItem> items)
+        public IList<TES3GameItem> AddItems(string modFileName, IEnumerable<TES3GameItem> items)
         {
+            var result = new List<TES3GameItem>();
+
             // Organize items by their record name, cache where possible along the way.
             var itemsByRecordName = new ListDictionary<string, TES3GameItem>();
             foreach (var item in items)
@@ -242,6 +252,8 @@ namespace TES3.GameItem
                     nominalItem = item;
                 }
 
+                result.Add(nominalItem);
+
                 // Handle common caching. (See also Load)
                 HandleCommonCache(modFileName, nominalItem);
 
@@ -264,6 +276,7 @@ namespace TES3.GameItem
                 }
             }
 
+            return result;
         }
 
         public Dialogue CreateDialogue(string modFileName, DialogueTopic topic)
