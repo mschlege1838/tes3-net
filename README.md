@@ -45,6 +45,40 @@ Encoding.RegisterProvider(CodePagesEncodingProvider.Instance);
 Technically the `EncodingProvider` must be registered prior to any game files containing text being read, 
 but our recommendation is to do it in a centralized static constructor.
 
+## Overview
+
+_TES3_ game files are collections of records and sub-records. Every record and sub-record is identified by a
+four character mnemonic and some additional header data.
+
+TES3.NET represents and manages these through three principal classes:
+
+- `SubRecord`
+
+   Represents an individual sub-record.
+   
+- `Record`
+
+   Represents an individual record. Manages a collection of `SubRecord`s.
+   
+- `ModFile`
+
+   Represents a _TES3_ game file; either an ESM or ESP file. Manages a collection of `Record`s.
+
+On their own, `Record`s and `SubRecord`s aren't necessarily straightforward to understand. TES3.NET clarifies
+them through a higher-level API built on top of them. It has two principal classes:
+
+- `TES3GameItem`
+
+   A clear, human-readable representation of a `Record`. It has its own fields and properties; communication
+   with `Record`s is transactional.
+   
+- `TES3Registry`
+
+   Manages collections of `TES3GameItem`s and their corresponding `Record`s. Reads in `ModFile`s, and 
+   automatically translates their `Record`s to `TES3GameItem`s, and manages the relationship between each.
+
+
+
 
 ## Documentation
 
