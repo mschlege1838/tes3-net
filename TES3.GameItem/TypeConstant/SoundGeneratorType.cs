@@ -4,7 +4,7 @@ namespace TES3.GameItem.TypeConstant
 {
     public enum SoundGeneratorType
     {
-        LeftFooot,
+        LeftFoot,
         RightFoot,
         SwimLeft,
         SwimRight,
