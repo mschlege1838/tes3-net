@@ -137,11 +137,14 @@ namespace test
                         && npc.Health > 0                                 // is not dead,
                         && !npc.HeadModel.ToLower().StartsWith("b_v")     // and is not a vampire...
 
-                        // (By default, Agents and Scouts offer services; comment below line to pacify them, as well.)
-                        && npc.Class != "Agent" && npc.Class != "Scout"   // and doesn't offer services by default.
+                        // (By default, Agents and Scouts offer services; comment below line to 
+                        // pacify them, as well.)
+                        && npc.Class != "Agent" && npc.Class != "Scout"   
+                                // ^and doesn't offer services, by default.
                     select item;
             // => Lonely ole' Qorwynn.
-            // (assuming last query condition is not commented, and input is only Morrowind.esm, Tribunal.esm, and Bloodmoon.esm)
+            // (assuming last query condition is not commented, and input is only Morrowind.esm, 
+            // Tribunal.esm, and Bloodmoon.esm)
             
 
             // Write inventory file.
