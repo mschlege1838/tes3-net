@@ -18,9 +18,10 @@ namespace TES3.GameItem.Item
         string name;
         string soundName;
 
-        public SoundGenerator(SoundGeneratorKey key) : base(key)
+        public SoundGenerator(SoundGeneratorType type, string soundName) : base(new object())
         {
-            Name = Key.Name;
+            Type = type;
+            SoundName = soundName;
         }
 
         public SoundGenerator(Record record) : base(record)
@@ -30,12 +31,6 @@ namespace TES3.GameItem.Item
 
         public override string RecordName => "SNDG";
 
-        [IdField]
-        public SoundGeneratorKey Key
-        {
-            get => (SoundGeneratorKey) Id;
-            set => Id = value;
-        }
 
         public string Name
         {
@@ -45,14 +40,14 @@ namespace TES3.GameItem.Item
 
         public SoundGeneratorType Type
         {
-            get => Key.Type;
-            set => Key = new SoundGeneratorKey(Key.CreatureName, value);
+            get;
+            set;
         }
 
         public string CreatureName
         {
-            get => Key.CreatureName;
-            set => Key = new SoundGeneratorKey(value, Key.Type);
+            get;
+            set;
         }
 
         public string SoundName
@@ -89,7 +84,7 @@ namespace TES3.GameItem.Item
 
         protected override void DoSyncWithRecord(Record record)
         {
-            Id = new SoundGeneratorKey(record.TryGetSubRecord<StringSubRecord>("CNAM")?.Data, (SoundGeneratorType) record.GetSubRecord<IntSubRecord>("DATA").Data);
+            Id = new object();
 
             // Required
             Name = record.GetSubRecord<StringSubRecord>("NAME").Data;
@@ -108,10 +103,9 @@ namespace TES3.GameItem.Item
 
         public override TES3GameItem Copy()
         {
-            return new SoundGenerator(Key)
+            return new SoundGenerator(Type, SoundName)
             {
                 Name = Name,
-                SoundName = SoundName,
                 Deleted = Deleted
             };
         }
@@ -138,51 +132,5 @@ namespace TES3.GameItem.Item
         }
     }
 
-    public class SoundGeneratorKey
-    {
 
-        public SoundGeneratorKey(string creatureName, SoundGeneratorType type)
-        {
-            CreatureName = creatureName;
-            Type = type;
-        }
-
-        public string CreatureName
-        {
-            get;
-        }
-
-        public SoundGeneratorType Type
-        {
-            get;
-        }
-
-        public string Name
-        {
-            get => $"{CreatureName}{Type}";
-        }
-
-        public override int GetHashCode()
-        {
-            var result = 1;
-            result = result * 31 + (CreatureName is null ? 0 : CreatureName.GetHashCode());
-            result = result * 31 + Type.GetHashCode();
-            return result;
-        }
-
-        public override bool Equals(object obj)
-        {
-            if (obj == null || GetType() != obj.GetType())
-            {
-                return false;
-            }
-
-            var other = (SoundGeneratorKey) obj;
-            return Type == other.Type && OperatorUtils.Equals(CreatureName, other.CreatureName);
-        }
-
-        public static bool operator ==(SoundGeneratorKey a, SoundGeneratorKey b) => OperatorUtils.Equals(a, b);
-
-        public static bool operator !=(SoundGeneratorKey a, SoundGeneratorKey b) => OperatorUtils.NotEquals(a, b);
-    }
 }
