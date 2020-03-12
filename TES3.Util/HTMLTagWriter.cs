@@ -20,9 +20,6 @@ namespace TES3.Util
             [">"] = "&gt;"
         };
 
-        static readonly ISet<string> RequiresBodyTags = new HashSet<string> { "script", "button", "select" };
-
-
         readonly TextWriter writer;
 
         bool inAttributes = false;
@@ -132,7 +129,7 @@ namespace TES3.Util
             return this;
         }
 
-        public HTMLTagWriter CloseTag()
+        public HTMLTagWriter CloseTag(bool requiresBody = false)
         {
             if (tagStack.Count == 0)
             {
@@ -142,7 +139,7 @@ namespace TES3.Util
             var name = tagStack.Pop();
             if (inAttributes)
             {
-                if (RequiresBodyTags.Contains(name))
+                if (requiresBody)
                 {
                     writer.Write($"></{name}>");
                 }
